@@ -4,7 +4,10 @@ Jogo 2D que consiste em disparar balas para tentar acertar em inimigos que estã
 tentar apanhar o jogador. Estes inimigos podem deixar cair frutas que recuperam a vida do jogador e
 acrescentam um número de pontos quando este colide com as mesmas.
 
+
 Objetivos do jogo:
+
+
   Objetivos do jogador:
     • Fugir ou matar os inimigos;
     • Apanhar o maior número de frutas possível.
