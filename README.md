@@ -9,12 +9,15 @@ Objetivos do jogo:
 
 
   Objetivos do jogador:
+  
     • Fugir ou matar os inimigos;
     • Apanhar o maior número de frutas possível.
   Objetivos dos inimigos:
+  
     • Apanhar ou matar o jogador;
   
 Observações:
+
 
 Jogo em 2D;
 Vista de cima;
