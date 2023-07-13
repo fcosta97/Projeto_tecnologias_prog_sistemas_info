@@ -1,3 +1,4 @@
+import math
 import pygame
 from configs import *
 from player import Player
@@ -11,16 +12,14 @@ pygame.display.set_caption(Window.TITLE)
 player = Player()
 
 clock = pygame.time.Clock()
-FPS = 144
+FPS = 60
 
 # tiles = math.ceil(Window.WIDTH / World.BACKGROUND_WIDTH) + math.ceil(Window.HEIGHT / World.BACKGROUND_HEIGHT)
 tiles = 2
 
-print(tiles)
-
 background_x = 0
 background_y = 0
-velocity = 3
+velocity = 6
 
 while 1:
     dt = clock.tick(FPS)

@@ -1,3 +1,4 @@
+import math
 import pygame
 from configs import *
 
@@ -21,5 +22,18 @@ class Player:
     # def move_right(self):
     #     self.__x += 5
 
+    def get_x(self):
+        return self.__x
+    
+    def get_y(self):
+        return self.__y
+
     def draw(self, surface):
-        surface.blit(self.__img, [self.__x, self.__y])
+        mouse_x, mouse_y = pygame.mouse.get_pos()
+        rel_x, rel_y = mouse_x - self.__x, mouse_y - self.__y
+        angle = (180 / math.pi) * -math.atan2(rel_y, rel_x)
+
+        rotated_image = pygame.transform.rotate(self.__img, angle)
+        new_rect = rotated_image.get_rect(center = self.__img.get_rect(center = (self.__x, self.__y)).center)
+
+        surface.blit(rotated_image, new_rect)
