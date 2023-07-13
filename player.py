@@ -2,9 +2,9 @@ import pygame
 from configs import *
 
 class Player:
-    def __init__(self, x, y):
-        self.__x = x
-        self.__y = y
+    def __init__(self):
+        self.__x = Window.WIDTH / 2
+        self.__y = Window.HEIGHT / 2
         self.__img = Skins.PLAYER
         self.__health = 0
         self.__score = 0
