@@ -28,7 +28,7 @@ while 1:
         if event.type == pygame.QUIT:
             pygame.quit()
 
-    # BACKGROUND
+    # BACKGROUND -> class World
     for i in range(0, tiles):
         screen.blit(World.BACKGROUND, (i * World.BACKGROUND_WIDTH + background_x, background_y)) # right
         screen.blit(World.BACKGROUND, (i * World.BACKGROUND_WIDTH + background_x, World.BACKGROUND_HEIGHT + background_y)) # down right
@@ -57,8 +57,12 @@ while 1:
         background_y += velocity
     if key[pygame.K_s] or key[pygame.K_DOWN]:
         background_y -= velocity
+    # if key[pygame.K_1]:
+        # player.shoot_if_ready()
+        # player.shoot()
 
     player.draw(screen)
+    player.draw_bullets(screen)
 
     pygame.display.update()
 

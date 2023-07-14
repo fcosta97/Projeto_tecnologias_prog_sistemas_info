@@ -18,6 +18,7 @@ class Skins:
     PLAYER = pygame.image.load("imgs/player.png").convert_alpha()
     ENEMY = pygame.image.load("imgs/enemy.png").convert_alpha()
     FRUIT = pygame.image.load("imgs/fruit.png").convert_alpha()
+    BULLET = pygame.image.load("imgs/bullet.png").convert_alpha()
 
 # class Font:
     # MAIN = pygame.font.Font('fonts/Roboto-Regular.ttf', 50)

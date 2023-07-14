@@ -1,5 +1,6 @@
 import math
 import pygame
+from bullet import Bullet
 from configs import *
 
 class Player:
@@ -9,18 +10,8 @@ class Player:
         self.__img = Skins.PLAYER
         self.__health = 0
         self.__score = 0
-
-    # def move_up(self):
-    #     self.__y -= 5 
-
-    # def move_down(self):
-    #     self.__y += 5
-
-    # def move_left(self):
-    #     self.__x -= 5
-
-    # def move_right(self):
-    #     self.__x += 5
+        self.__total_shoot_frames = 0
+        self.__bullets = []
 
     def get_x(self):
         return self.__x
@@ -28,12 +19,29 @@ class Player:
     def get_y(self):
         return self.__y
 
+    def shoot(self):
+        self.__bullets.append(Bullet(self.__x + 100, self.__y + 100))
+
+    def shoot_if_ready(self):
+        self.__total_shoot_frames += 1
+        if self.__total_shoot_frames == 120:
+            self.__bullets.append(Bullet(self.__x, self.__y))
+            self.__total_shoot_frames = 0
+
+    def draw_bullets(self, surface):
+        for bullet in self.__bullets:
+            bullet.draw(surface)
+
     def draw(self, surface):
         mouse_x, mouse_y = pygame.mouse.get_pos()
-        rel_x, rel_y = mouse_x - self.__x, mouse_y - self.__y
+
+        rel_x  = mouse_x - self.__x
+        rel_y = mouse_y - self.__y
+
         angle = (180 / math.pi) * -math.atan2(rel_y, rel_x)
 
         rotated_image = pygame.transform.rotate(self.__img, angle)
+        
         new_rect = rotated_image.get_rect(center = self.__img.get_rect(center = (self.__x, self.__y)).center)
 
         surface.blit(rotated_image, new_rect)
