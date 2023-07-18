@@ -9,11 +9,6 @@ class Window:
 
 pygame.display.set_mode((Window.WIDTH, Window.HEIGHT))
 
-class World:
-    BACKGROUND = pygame.image.load("imgs/bg.png").convert_alpha()
-    BACKGROUND_WIDTH = BACKGROUND.get_width()
-    BACKGROUND_HEIGHT = BACKGROUND.get_height()
-
 class Skins:
     PLAYER = pygame.image.load("imgs/player.png").convert_alpha()
     ENEMY = pygame.image.load("imgs/enemy.png").convert_alpha()

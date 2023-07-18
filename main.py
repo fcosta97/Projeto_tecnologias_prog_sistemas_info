@@ -1,7 +1,7 @@
-import math
 import pygame
 from configs import *
 from player import Player
+from world import World
 
 pygame.init()
 
@@ -14,12 +14,12 @@ player = Player()
 clock = pygame.time.Clock()
 FPS = 60
 
-# tiles = math.ceil(Window.WIDTH / World.BACKGROUND_WIDTH) + math.ceil(Window.HEIGHT / World.BACKGROUND_HEIGHT)
-tiles = 2
+world = World()
 
-background_x = 0
-background_y = 0
-velocity = 6
+coord_x = 0
+coord_y = 0
+
+font = pygame.font.SysFont(None, 24)
 
 while 1:
     dt = clock.tick(FPS)
@@ -28,38 +28,34 @@ while 1:
         if event.type == pygame.QUIT:
             pygame.quit()
 
-    # BACKGROUND -> class World
-    for i in range(0, tiles):
-        screen.blit(World.BACKGROUND, (i * World.BACKGROUND_WIDTH + background_x, background_y)) # right
-        screen.blit(World.BACKGROUND, (i * World.BACKGROUND_WIDTH + background_x, World.BACKGROUND_HEIGHT + background_y)) # down right
-        screen.blit(World.BACKGROUND, (i * World.BACKGROUND_WIDTH + background_x, -World.BACKGROUND_HEIGHT + background_y)) # up right
-
-        screen.blit(World.BACKGROUND, (i * -World.BACKGROUND_WIDTH + background_x, background_y)) # left
-        screen.blit(World.BACKGROUND, (i * -World.BACKGROUND_WIDTH + background_x, World.BACKGROUND_HEIGHT + background_y)) # down left
-        screen.blit(World.BACKGROUND, (i * -World.BACKGROUND_WIDTH + background_x, -World.BACKGROUND_HEIGHT + background_y)) # up left
-
-    if abs(background_x) > World.BACKGROUND_WIDTH:
-        background_x = 0
-
-    if abs(background_y) > World.BACKGROUND_HEIGHT:
-        background_y = 0
-
-    # screen.blit(World.BACKGROUND, [background_x, background_y])
+    world.draw(screen)
 
     # CONTROLS
     key = pygame.key.get_pressed()
 
     if key[pygame.K_a] or key[pygame.K_LEFT]:
-        background_x += velocity
+        world.move_left()
+        coord_x -= world.get_velocity()
+
     if key[pygame.K_d] or key[pygame.K_RIGHT]:
-        background_x -= velocity
+        world.move_right()
+        coord_x += world.get_velocity()
+
     if key[pygame.K_w] or key[pygame.K_UP]:
-        background_y += velocity
+        world.move_up()
+        coord_y -= world.get_velocity()
+
     if key[pygame.K_s] or key[pygame.K_DOWN]:
-        background_y -= velocity
+        world.move_down()
+        coord_y += world.get_velocity()
+
     # if key[pygame.K_1]:
         # player.shoot_if_ready()
         # player.shoot()
+
+    text = font.render(F"X: {coord_x}   |   Y: {coord_y}", 1, (0, 0, 0)) # for tests (not final)
+
+    screen.blit(text, (50, 50))
 
     player.draw(screen)
     player.draw_bullets(screen)
