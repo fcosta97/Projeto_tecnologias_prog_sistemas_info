@@ -51,7 +51,7 @@ class Player:
 
     def adjust_bullets(self, x, y):
         for bullet in self.__bullets:
-            bullet.adjust_ip(x, y)
+            bullet.adjust(x, y)
 
     def shoot_if_ready(self):
         self.__total_shoot_frames += 1

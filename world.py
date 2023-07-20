@@ -1,5 +1,14 @@
 from configs import *
 
+class WorldSettings:
+    VELOCITY = 5
+
+class WorldDirections:
+    LEFT = 0
+    RIGHT = 1
+    UP = 2
+    DOWN = 3
+
 class World:
     def __init__(self):
         self.__background_img = pygame.image.load("imgs/map_6.png").convert_alpha()
@@ -19,33 +28,28 @@ class World:
         #     surface.blit(self.__background_img, (i * -self.__bg_img_width + self.__x, self.__y)) # left
         #     surface.blit(self.__background_img, (i * -self.__bg_img_width + self.__x, self.__bg_img_height + self.__y)) # down left
         #     surface.blit(self.__background_img, (i * -self.__bg_img_width + self.__x, -self.__bg_img_height + self.__y)) # up left
+        # self.reset_coords_if_needed()
+
         surface.blit(self.__background_img, (self.__x, self.__y))
-        self.reset_coords_if_needed()
 
-    def move_left(self):
-        if self.is_in_bounds(WorldDirections.LEFT):
-            self.__x += self.__velocity
+    # def move_left(self):
+    #     if self.is_in_bounds(WorldDirections.LEFT):
+    #         self.__x += self.__velocity
 
-    def move_right(self):
-        if self.is_in_bounds(WorldDirections.RIGHT):
-            self.__x -= self.__velocity
+    # def move_right(self):
+    #     if self.is_in_bounds(WorldDirections.RIGHT):
+    #         self.__x -= self.__velocity
 
-    def move_up(self):
-        if self.is_in_bounds(WorldDirections.UP):
-            self.__y += self.__velocity
+    # def move_up(self):
+    #     if self.is_in_bounds(WorldDirections.UP):
+    #         self.__y += self.__velocity
 
-    def move_down(self):
-        if self.is_in_bounds(WorldDirections.DOWN):
-            self.__y -= self.__velocity
+    # def move_down(self):
+    #     if self.is_in_bounds(WorldDirections.DOWN):
+    #         self.__y -= self.__velocity
 
-    def get_velocity(self):
-        return self.__velocity
-    
-    def get_bg_width(self):
-        return self.__bg_img_width
-    
-    def get_bg_height(self):
-        return self.__bg_img_height
+    # def get_velocity(self):
+    #     return self.__velocity
     
     def get_x(self):
         return self.__x
@@ -53,12 +57,12 @@ class World:
     def get_y(self):
         return self.__y
 
-    def reset_coords_if_needed(self):
-        if abs(self.__x) > self.__bg_img_width:
-            self.__x = 0
+    # def reset_coords_if_needed(self):
+    #     if abs(self.__x) > self.__bg_img_width:
+    #         self.__x = 0
 
-        if abs(self.__y) > self.__bg_img_height:
-            self.__y = 0
+    #     if abs(self.__y) > self.__bg_img_height:
+    #         self.__y = 0
     
     # def is_in_bounds(self, direction):
         # if direction == WorldDirections.RIGHT:
@@ -79,27 +83,21 @@ class World:
 
         # if self.__x < -(self.__bg_img_width - Window.WIDTH) and self.__x < 0
             
-    def move_ip(self, x, y):
+    def move(self, x, y):
         self.__x -= x 
         self.__y -= y 
 
         return self.__x, self.__y
     
-    def check_move_x(self, x):
-        temp_x = self.__x - x 
+    # def check_move_x(self, x): # ?
+    #     temp_x = self.__x - x 
 
-        return temp_x
+    #     return temp_x
     
-    def check_move_y(self, y):
-        temp_y = self.__y - y 
+    # def check_move_y(self, y): # ?
+    #     temp_y = self.__y - y 
 
-        return temp_y
+    #     return temp_y
 
-class WorldSettings:
-    VELOCITY = 5
-
-class WorldDirections:
-    LEFT = 0
-    RIGHT = 1
-    UP = 2
-    DOWN = 3
+    def check_move(self, x, y): # rename
+        return (self.__x - x < 0 and self.__x - x > -(self.__bg_img_width - Window.WIDTH)) and (self.__y - y < 0 and self.__y - y > -(self.__bg_img_height - Window.HEIGHT))

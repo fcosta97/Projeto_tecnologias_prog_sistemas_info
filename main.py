@@ -42,43 +42,21 @@ while 1:
     up = key[pygame.K_w] or key[pygame.K_UP]
     down = key[pygame.K_s] or key[pygame.K_DOWN]
 
-    move = pygame.math.Vector2(right - left, down - up)
+    movement = pygame.math.Vector2(right - left, down - up)
 
-    if move.length_squared() > 0:
-            
-        move.scale_to_length(WorldSettings.VELOCITY)
+    if movement.length_squared() > 0:
 
-        x, y = round(move.x), round(move.y)
+        movement.scale_to_length(WorldSettings.VELOCITY)
 
-        if (world.check_move_x(x) < 0 and world.check_move_x(x) > -(world.get_bg_width() - Window.WIDTH)) and (world.check_move_y(y) < 0 and world.check_move_y(y) > -(world.get_bg_height() - Window.HEIGHT)):
+        x, y = round(movement.x), round(movement.y)
 
-            world.move_ip(x, y)
-        
-            player.adjust_bullets(x, y)    
+        if world.check_move(x, y):
+            world.move(x, y)
 
-    # if left:
-    #     world.move_left()
-    #     coord_x -= world.get_velocity()
+            player.adjust_bullets(x, y)
 
-    #     player.adjust_bullets(WorldDirections.LEFT)
-
-    # if right:
-    #     world.move_right()
-    #     coord_x += world.get_velocity()
-
-    #     player.adjust_bullets(WorldDirections.RIGHT)
-
-    # if up:
-    #     world.move_up()
-    #     coord_y -= world.get_velocity()
-
-    #     player.adjust_bullets(WorldDirections.UP)
-
-    # if down:
-    #     world.move_down()
-    #     coord_y += world.get_velocity()
-
-    #     player.adjust_bullets(WorldDirections.DOWN)
+            coord_x += x # for debug
+            coord_y += y # for debug
 
     text = font.render(F"X: {coord_x}   |   Y: {coord_y}", 1, (0, 0, 0)) # for debug
 
@@ -87,8 +65,8 @@ while 1:
     screen.blit(text, (50, 50)) # for debug
     screen.blit(text2, (50, 90)) # for debug
 
-    player.draw(screen) 
     player.draw_bullets(screen)
+    player.draw(screen) 
 
     pygame.display.update()
 
