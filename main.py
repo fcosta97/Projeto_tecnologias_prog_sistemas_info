@@ -42,35 +42,43 @@ while 1:
     up = key[pygame.K_w] or key[pygame.K_UP]
     down = key[pygame.K_s] or key[pygame.K_DOWN]
 
-    # move = pygame.math.Vector2(right - left, down - up)
+    move = pygame.math.Vector2(right - left, down - up)
 
-    # if move.length_squared() > 0:
-    #     move.scale_to_length(world.get_velocity())
-    #     world.move_ip(round(move.x), round(move.y))       
+    if move.length_squared() > 0:
+            
+        move.scale_to_length(WorldSettings.VELOCITY)
 
-    if left:
-        world.move_left()
-        coord_x -= world.get_velocity()
+        x, y = round(move.x), round(move.y)
 
-        player.adjust_bullets(WorldDirections.LEFT)
+        if (world.check_move_x(x) < 0 and world.check_move_x(x) > -(world.get_bg_width() - Window.WIDTH)) and (world.check_move_y(y) < 0 and world.check_move_y(y) > -(world.get_bg_height() - Window.HEIGHT)):
 
-    if right:
-        world.move_right()
-        coord_x += world.get_velocity()
+            world.move_ip(x, y)
+        
+            player.adjust_bullets(x, y)    
 
-        player.adjust_bullets(WorldDirections.RIGHT)
+    # if left:
+    #     world.move_left()
+    #     coord_x -= world.get_velocity()
 
-    if up:
-        world.move_up()
-        coord_y -= world.get_velocity()
+    #     player.adjust_bullets(WorldDirections.LEFT)
 
-        player.adjust_bullets(WorldDirections.UP)
+    # if right:
+    #     world.move_right()
+    #     coord_x += world.get_velocity()
 
-    if down:
-        world.move_down()
-        coord_y += world.get_velocity()
+    #     player.adjust_bullets(WorldDirections.RIGHT)
 
-        player.adjust_bullets(WorldDirections.DOWN)
+    # if up:
+    #     world.move_up()
+    #     coord_y -= world.get_velocity()
+
+    #     player.adjust_bullets(WorldDirections.UP)
+
+    # if down:
+    #     world.move_down()
+    #     coord_y += world.get_velocity()
+
+    #     player.adjust_bullets(WorldDirections.DOWN)
 
     text = font.render(F"X: {coord_x}   |   Y: {coord_y}", 1, (0, 0, 0)) # for debug
 

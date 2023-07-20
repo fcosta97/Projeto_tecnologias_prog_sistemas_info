@@ -45,7 +45,7 @@ class World:
         return self.__bg_img_width
     
     def get_bg_height(self):
-        return self.get_bg_height
+        return self.__bg_img_height
     
     def get_x(self):
         return self.__x
@@ -60,22 +60,40 @@ class World:
         if abs(self.__y) > self.__bg_img_height:
             self.__y = 0
     
-    def is_in_bounds(self, direction):
+    # def is_in_bounds(self, direction):
         # if direction == WorldDirections.RIGHT:
         #     return self.__x >= -4680 
         
-        match direction:
-            case WorldDirections.LEFT:
-                return self.__x <= 0 
+        # match direction:
+        #     case WorldDirections.LEFT:
+        #         return self.__x <= 0 
                 
-            case WorldDirections.RIGHT:
-                return self.__x >= -(self.__bg_img_width - Window.WIDTH) # -4680 
+        #     case WorldDirections.RIGHT:
+        #         return self.__x >= -(self.__bg_img_width - Window.WIDTH) # -4680 
 
-            case WorldDirections.UP:
-                return self.__y <= 0
+        #     case WorldDirections.UP:
+        #         return self.__y <= 0
 
-            case WorldDirections.DOWN:
-                return self.__y >= -(self.__bg_img_height - Window.HEIGHT) # -5412 
+        #     case WorldDirections.DOWN:
+        #         return self.__y >= -(self.__bg_img_height - Window.HEIGHT) # -5412 
+
+        # if self.__x < -(self.__bg_img_width - Window.WIDTH) and self.__x < 0
+            
+    def move_ip(self, x, y):
+        self.__x -= x 
+        self.__y -= y 
+
+        return self.__x, self.__y
+    
+    def check_move_x(self, x):
+        temp_x = self.__x - x 
+
+        return temp_x
+    
+    def check_move_y(self, y):
+        temp_y = self.__y - y 
+
+        return temp_y
 
 class WorldSettings:
     VELOCITY = 5

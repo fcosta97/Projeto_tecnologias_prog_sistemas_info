@@ -33,3 +33,7 @@ class Bullet:
 
             case WorldDirections.DOWN:
                 self.__y -= WorldSettings.VELOCITY 
+
+    def adjust_ip(self, x, y):
+        self.__x -= x
+        self.__y -= y

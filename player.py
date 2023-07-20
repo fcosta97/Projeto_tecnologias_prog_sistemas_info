@@ -49,9 +49,9 @@ class Player:
 
         self.__bullets.append(Bullet(self.__x, self.__y, mouse_x, mouse_y))
 
-    def adjust_bullets(self, direction):
+    def adjust_bullets(self, x, y):
         for bullet in self.__bullets:
-            bullet.adjust(direction)
+            bullet.adjust_ip(x, y)
 
     def shoot_if_ready(self):
         self.__total_shoot_frames += 1
