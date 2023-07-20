@@ -7,6 +7,9 @@ class Window:
     TITLE = "TEST"
     # ICON = pygame.image.load("imgs/icon.png")
 
+class Game:
+    FPS = 144
+
 pygame.display.set_mode((Window.WIDTH, Window.HEIGHT))
 
 class Skins:

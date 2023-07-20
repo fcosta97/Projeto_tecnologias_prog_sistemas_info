@@ -2,7 +2,7 @@ import math
 import pygame
 from bullet import Bullet
 from configs import *
-from world import WorldSettings
+from world import WorldSettings, WorldDirections
 
 class Player:
     def __init__(self):
@@ -45,11 +45,17 @@ class Player:
             self.__y += WorldSettings.VELOCITY
 
     def shoot(self):
-        self.__bullets.append(Bullet(self.__x + 100, self.__y + 100))
+        mouse_x, mouse_y = pygame.mouse.get_pos()
+
+        self.__bullets.append(Bullet(self.__x, self.__y, mouse_x, mouse_y))
+
+    def adjust_bullets(self, direction):
+        for bullet in self.__bullets:
+            bullet.adjust(direction)
 
     def shoot_if_ready(self):
         self.__total_shoot_frames += 1
-        if self.__total_shoot_frames == 120:
+        if self.__total_shoot_frames == Game.FPS * 2:
             self.__bullets.append(Bullet(self.__x, self.__y))
             self.__total_shoot_frames = 0
 
