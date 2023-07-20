@@ -9,17 +9,17 @@ screen = pygame.display.set_mode((Window.WIDTH, Window.HEIGHT))
 
 pygame.display.set_caption(Window.TITLE)
 
-player = Player()
-
 clock = pygame.time.Clock()
-FPS = 60
-
-world = World()
+FPS = 144
 
 coord_x = 0
 coord_y = 0
 
 font = pygame.font.SysFont(None, 24)
+
+world = World()
+
+player = Player()
 
 while 1:
     dt = clock.tick(FPS)
@@ -53,12 +53,15 @@ while 1:
         # player.shoot_if_ready()
         # player.shoot()
 
-    text = font.render(F"X: {coord_x}   |   Y: {coord_y}", 1, (0, 0, 0)) # for tests (not final)
+    text = font.render(F"X: {coord_x}   |   Y: {coord_y}", 1, (0, 0, 0)) # for debug
 
-    screen.blit(text, (50, 50))
+    text2 = font.render(F"World X: {world.get_x()}   |   Y: {world.get_y()}", 1, (0, 0, 0)) # for debug
 
-    player.draw(screen)
-    player.draw_bullets(screen)
+    screen.blit(text, (50, 50)) # for debug
+    screen.blit(text2, (50, 90)) # for debug
+
+    player.draw(screen) 
+    # player.draw_bullets(screen)
 
     pygame.display.update()
 

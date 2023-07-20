@@ -2,11 +2,14 @@ import math
 import pygame
 from bullet import Bullet
 from configs import *
+from world import WorldSettings
 
 class Player:
     def __init__(self):
-        self.__x = (Window.WIDTH / 2) - (Skins.PLAYER.get_width() / 2)
-        self.__y = (Window.HEIGHT / 2) - (Skins.PLAYER.get_height() / 2)
+        self.__initial_x = (Window.WIDTH / 2) - (Skins.PLAYER.get_width() / 2)
+        self.__x = self.__initial_x
+        self.__initial_y = (Window.HEIGHT / 2) - (Skins.PLAYER.get_height() / 2)
+        self.__y = self.__initial_y
         self.__img = Skins.PLAYER
         self.__health = 0
         self.__score = 0
@@ -18,6 +21,28 @@ class Player:
     
     def get_y(self):
         return self.__y
+    
+    def get_initial_x(self):
+        return self.__initial_x
+    
+    def get_initial_y(self):
+        return self.__initial_y
+    
+    def move_left(self):
+        if self.__x > 0:
+            self.__x -= WorldSettings.VELOCITY
+
+    def move_right(self):
+        if self.__x < Window.WIDTH:
+            self.__x += WorldSettings.VELOCITY
+
+    def move_up(self):
+        if self.__y > 0:
+            self.__y -= WorldSettings.VELOCITY
+
+    def move_down(self):
+        if self.__y < Window.HEIGHT:
+            self.__y += WorldSettings.VELOCITY
 
     def shoot(self):
         self.__bullets.append(Bullet(self.__x + 100, self.__y + 100))
