@@ -60,20 +60,17 @@ while 1:
 
         player.adjust_bullets(WorldDirections.RIGHT)
 
-
     if up:
         world.move_up()
         coord_y -= world.get_velocity()
 
         player.adjust_bullets(WorldDirections.UP)
 
-
     if down:
         world.move_down()
         coord_y += world.get_velocity()
 
         player.adjust_bullets(WorldDirections.DOWN)
-
 
     text = font.render(F"X: {coord_x}   |   Y: {coord_y}", 1, (0, 0, 0)) # for debug
 
