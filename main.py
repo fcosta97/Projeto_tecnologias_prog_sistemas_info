@@ -12,8 +12,8 @@ pygame.display.set_caption(Window.TITLE)
 clock = pygame.time.Clock()
 FPS = 144
 
-coord_x = 0
-coord_y = 0
+coord_x = 0 # for debug
+coord_y = 0 # for debug
 
 font = pygame.font.SysFont(None, 24)
 
