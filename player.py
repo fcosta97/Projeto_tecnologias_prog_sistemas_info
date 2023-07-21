@@ -53,12 +53,6 @@ class Player:
         for bullet in self.__bullets:
             bullet.adjust(x, y)
 
-    def shoot_if_ready(self):
-        self.__total_shoot_frames += 1
-        if self.__total_shoot_frames == Game.FPS * 2:
-            self.__bullets.append(Bullet(self.__x, self.__y))
-            self.__total_shoot_frames = 0
-
     def draw_bullets(self, surface):
         for bullet in self.__bullets:
             bullet.draw(surface)
@@ -66,13 +60,11 @@ class Player:
     def draw(self, surface):
         mouse_x, mouse_y = pygame.mouse.get_pos()
 
-        rel_x  = mouse_x - self.__x
-        rel_y = mouse_y - self.__y
+        rel_x = round(mouse_x - self.__x)
+        rel_y = round(mouse_y - self.__y)
 
-        angle = (180 / math.pi) * -math.atan2(rel_y, rel_x)
-
+        angle = round((180 / math.pi) * -math.atan2(rel_y , rel_x))
         rotated_image = pygame.transform.rotate(self.__img, angle)
-        
         new_rect = rotated_image.get_rect(center = self.__img.get_rect(center = (self.__x, self.__y)).center)
 
         surface.blit(rotated_image, new_rect)

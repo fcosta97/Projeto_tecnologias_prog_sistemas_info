@@ -31,7 +31,6 @@ while 1:
             if event.button == 1:
                 player.shoot()
 
-
     world.draw(screen)
 
     # CONTROLS
@@ -42,10 +41,13 @@ while 1:
     up = key[pygame.K_w] or key[pygame.K_UP]
     down = key[pygame.K_s] or key[pygame.K_DOWN]
 
+    #x_ajust, y_ajust = word.move(up, down, left, right)
+    #return (0, 0)
+    #player.adjust_bullets(x_ajust, y_ajust)
+
     movement = pygame.math.Vector2(right - left, down - up)
 
     if movement.length_squared() > 0:
-
         movement.scale_to_length(WorldSettings.VELOCITY)
 
         x, y = round(movement.x), round(movement.y)
@@ -59,14 +61,13 @@ while 1:
             coord_y += y # for debug
 
     text = font.render(F"X: {coord_x}   |   Y: {coord_y}", 1, (0, 0, 0)) # for debug
-
-    text2 = font.render(F"World X: {world.get_x()}   |   Y: {world.get_y()}", 1, (0, 0, 0)) # for debug
+    text2 = font.render(F"World X: {world.get_x()}   |   World Y: {world.get_y()}", 1, (0, 0, 0)) # for debug
 
     screen.blit(text, (50, 50)) # for debug
     screen.blit(text2, (50, 90)) # for debug
 
     player.draw_bullets(screen)
-    player.draw(screen) 
+    player.draw2(screen) 
 
     pygame.display.update()
 
