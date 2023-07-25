@@ -67,7 +67,7 @@ while 1:
     screen.blit(text2, (50, 90)) # for debug
 
     player.draw_bullets(screen)
-    player.draw2(screen) 
+    player.draw(screen) 
 
     pygame.display.update()
 
