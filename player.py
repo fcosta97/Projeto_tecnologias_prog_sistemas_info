@@ -11,10 +11,11 @@ class Player:
         self.__initial_y = (Window.HEIGHT / 2) - (Skins.PLAYER.get_height() / 2)
         self.__y = self.__initial_y
         self.__img = Skins.PLAYER
-        self.__health = 0
+        self.__health = 1
         self.__score = 0
         self.__total_shoot_frames = 0
         self.__bullets = []
+        self.__bullet_damage = 1
 
     def get_x(self):
         return self.__x
@@ -27,6 +28,23 @@ class Player:
     
     def get_initial_y(self):
         return self.__initial_y
+    
+    def get_health(self):
+        return self.__health
+        
+    def get_damage(self):
+        return self.__bullet_damage
+    
+    def get_len_bullets(self):
+        return len(self.__bullets)
+    
+    def get_overlaping_area(self, image, offset_x, offset_y):
+        self_mask = pygame.mask.from_surface(self.__img)
+        who_mask = pygame.mask.from_surface(image)
+        return who_mask.overlap_area(self_mask, [self.__x - offset_x, self.__y - offset_y])
+    
+    def hurt(self, damage):
+        self.__health -= damage
     
     def move_left(self):
         if self.__x > 0:
@@ -53,9 +71,26 @@ class Player:
         for bullet in self.__bullets:
             bullet.adjust(x, y)
 
+    def move_bullets(self):
+        for bullet in self.__bullets:
+
+            bullet.move()
+
+            if bullet.is_out():
+                self.__bullets.remove(bullet)
+
+    def hits(self, enemy):
+        for bullet in self.__bullets:
+            if bullet.collides_with(enemy):                
+                self.__bullets.remove(bullet)
+
+                return True
+
+
+
     def draw_bullets(self, surface):
         for bullet in self.__bullets:
-            bullet.draw(surface)
+                bullet.draw(surface)
 
     def draw(self, surface):
         mouse_x, mouse_y = pygame.mouse.get_pos()
@@ -66,6 +101,8 @@ class Player:
         angle = round((180 / math.pi) * -math.atan2(rel_y , rel_x))
         rotated_image = pygame.transform.rotate(self.__img, angle)
         new_rect = rotated_image.get_rect(center = self.__img.get_rect(center = (self.__x, self.__y)).center)
+
+        pygame.draw.line(surface, (0, 0, 0), (self.__x, self.__y), (mouse_x, mouse_y), 2), 
 
         surface.blit(rotated_image, new_rect)
 

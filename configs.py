@@ -8,7 +8,7 @@ class Window:
     # ICON = pygame.image.load("imgs/icon.png")
 
 class Game:
-    FPS = 144
+    FPS = 60
 
 pygame.display.set_mode((Window.WIDTH, Window.HEIGHT))
 
