@@ -48,6 +48,22 @@ while 1:
     if player.get_health() < 0:
         screen.blit(Game.GAME_OVER, ((Window.WIDTH / 2) - (Game.GAME_OVER.get_width() / 2),\
                                      (Window.HEIGHT / 2) - (Game.GAME_OVER.get_height() / 2)))
+        
+        restart = Game.FONT.render("Press R to restart", 1, (0, 0, 0)) 
+
+        screen.blit(restart, ((Window.WIDTH / 2) - (restart.get_width() / 2),\
+                                     (Window.HEIGHT / 2) - (restart.get_height() / 2) + 50))
+        
+        pygame.display.update()
+        
+        if reset:
+            enemies.clear()
+
+            player.reset()
+
+            world.reset()
+        else:
+            continue
 
     movement = pygame.math.Vector2(right - left, down - up)
 
@@ -56,7 +72,7 @@ while 1:
 
         x, y = round(movement.x), round(movement.y)
 
-        if world.check_move(x, y):
+        if world.is_in_bounds(x, y):
             world.move(x, y)
 
             world.adjust_fruits(x, y)

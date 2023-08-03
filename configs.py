@@ -8,8 +8,8 @@ class Window:
 
 class Game:
     FPS = 60
-    FONT = pygame.font.SysFont("consolas", 24)
-    FONT_TITLE = pygame.font.SysFont("consolas", 42)
+    FONT = pygame.font.SysFont("consolas", 42)
+    FONT_TITLE = pygame.font.SysFont("consolas", 84)
     GAME_OVER = FONT_TITLE.render("GAME OVER", 1, (0, 0, 0))
 
 pygame.display.set_mode((Window.WIDTH, Window.HEIGHT))

@@ -17,9 +17,15 @@ class World:
         self.__bg_img_height = self.__background_img.get_height()
         self.__x = (Window.WIDTH / 2) - (self.__bg_img_width / 2)
         self.__y = (Window.HEIGHT / 2) - (self.__bg_img_height / 2)
-        self.__velocity = WorldSettings.VELOCITY
         self.__fruits = []
     
+    def reset(self):
+        self.__bg_img_width = self.__background_img.get_width()
+        self.__bg_img_height = self.__background_img.get_height()
+        self.__x = (Window.WIDTH / 2) - (self.__bg_img_width / 2)
+        self.__y = (Window.HEIGHT / 2) - (self.__bg_img_height / 2)
+        self.__fruits = []
+
     def get_x(self):
         return self.__x
     
@@ -32,7 +38,7 @@ class World:
 
         return self.__x, self.__y
 
-    def check_move(self, x, y): # rename
+    def is_in_bounds(self, x, y):
         return \
             (self.__x - x < 0 and self.__x - x > -(self.__bg_img_width - Window.WIDTH)) and \
             (self.__y - y < 0 and self.__y - y > -(self.__bg_img_height - Window.HEIGHT))
@@ -54,6 +60,6 @@ class World:
     def fruit_collision(self, player):
         for fruit in self.__fruits:
             if fruit.collides_with(player):
-                player.eats_fruit(fruit.get_score())
+                player.eat_fruit(fruit.get_score())
 
                 self.__fruits.remove(fruit)

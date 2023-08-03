@@ -30,37 +30,26 @@ class Enemy():
         if self.hits(player):
             player.hurt(self.get_damage())
 
-        # Find direction vector (dx, dy) between enemy and player.
         direction_x = player.get_x() - self.__x
 
         direction_y = player.get_y() - self.__y
 
         distance = math.hypot(direction_x, direction_y)
 
-        # Normalize.
         direction_x = direction_x / distance
 
         direction_y = direction_y / distance
 
-        # Move along this normalized vector towards the player at current speed.
         self.__x += (direction_x * WorldSettings.VELOCITY) * 0.5
         self.__y += (direction_y * WorldSettings.VELOCITY) * 0.5
 
-    # group move towards player
     @staticmethod
     def move_group_towards_player(enemy_group, player):
         for enemy in enemy_group:
             enemy.move_towards_player(player)
 
-    #collides
     def collides_with(self, who):
         return who.get_overlaping_area(self.__img, self.__x, self.__y) > 0
-    
-    # group collides
-    @staticmethod
-    def group_collides_with(enemy_group, player):
-        for enemy in enemy_group:
-            enemy.collides_with(player)
     
     def get_overlaping_area(self, image, offset_x, offset_y):
         self_mask = pygame.mask.from_surface(self.__img)
@@ -79,12 +68,6 @@ class Enemy():
     
     def hits(self, player):
         return self.collides_with(player)
-    
-    @staticmethod
-    def group_hits(enemy_group, player):
-        for enemy in enemy_group:
-            if enemy.hits():
-                player.hurt(enemy.get_damage())
 
     def adjust(self, x, y):
         self.__x -= x
