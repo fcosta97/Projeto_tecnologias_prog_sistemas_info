@@ -1,4 +1,7 @@
 .venv/
+
 ASSETS/
+
 __pycache__/
+
 .zip

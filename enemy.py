@@ -10,6 +10,7 @@ class Enemy():
         self.__img = Skins.ENEMY
         self.__health = 1
         self.__damage = 1
+        self.__drops_fruit = random.randint(0, 1)
 
     def get_damage(self):
         return self.__damage
@@ -42,10 +43,8 @@ class Enemy():
         direction_y = direction_y / distance
 
         # Move along this normalized vector towards the player at current speed.
-        self.__x += direction_x * WorldSettings.VELOCITY
-        self.__y += direction_y * WorldSettings.VELOCITY
-
-
+        self.__x += (direction_x * WorldSettings.VELOCITY) * 0.5
+        self.__y += (direction_y * WorldSettings.VELOCITY) * 0.5
 
     # group move towards player
     @staticmethod
@@ -68,6 +67,10 @@ class Enemy():
         who_mask = pygame.mask.from_surface(image)
         return who_mask.overlap_area(self_mask, [self.__x - offset_x, self.__y - offset_y])
     
+    def drop_fruit(self, world):
+        if self.__drops_fruit:
+            world.spawn_fruit(self.__x, self.__y)
+
     def get_health(self):
         return self.__health
     
@@ -107,3 +110,5 @@ class Enemy():
     def draw_group(enemy_group, player, surface):
         for enemy in enemy_group:
             enemy.draw(player.get_x(), player.get_y(), surface)
+
+    

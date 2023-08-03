@@ -9,7 +9,7 @@ class Bullet:
         self.__img = Skins.BULLET
         self.__mouse_x = mouse_x
         self.__mouse_y = mouse_y
-        self.__velocity = WorldSettings.VELOCITY
+        self.__velocity = WorldSettings.VELOCITY * 2
         self.__angle = math.atan2(self.__y - self.__mouse_y, self.__x - self.__mouse_x)
         self.__x_vel = math.cos(self.__angle) * self.__velocity
         self.__y_vel = math.sin(self.__angle) * self.__velocity

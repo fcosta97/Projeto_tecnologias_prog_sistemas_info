@@ -1,4 +1,5 @@
 from configs import *
+from fruit import *
 
 class WorldSettings:
     VELOCITY = 5
@@ -17,7 +18,7 @@ class World:
         self.__x = (Window.WIDTH / 2) - (self.__bg_img_width / 2)
         self.__y = (Window.HEIGHT / 2) - (self.__bg_img_height / 2)
         self.__velocity = WorldSettings.VELOCITY
-        self.__n_tiles = 2
+        self.__fruits = []
     
     def get_x(self):
         return self.__x
@@ -38,3 +39,21 @@ class World:
     
     def draw(self, surface):
         surface.blit(self.__background_img, (self.__x, self.__y))
+
+    def spawn_fruit(self, x, y):
+        self.__fruits.append(Fruit(x, y))
+
+    def adjust_fruits(self, x, y):
+        for fruit in self.__fruits:
+            fruit.adjust(x, y)
+
+    def draw_fruits(self, surface):
+        for fruit in self.__fruits:
+            fruit.draw(surface)
+
+    def fruit_collision(self, player):
+        for fruit in self.__fruits:
+            if fruit.collides_with(player):
+                player.eats_fruit(fruit.get_score())
+
+                self.__fruits.remove(fruit)
