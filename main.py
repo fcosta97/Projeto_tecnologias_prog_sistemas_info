@@ -12,9 +12,6 @@ pygame.display.set_caption(Window.TITLE)
 
 clock = pygame.time.Clock()
 
-coord_x = 0 # for debug
-coord_y = 0 # for debug
-
 world = World()
 
 player = Player()
@@ -81,32 +78,14 @@ while 1:
 
             player.adjust_bullets(x, y)
 
-            coord_x += x # for debug
-            coord_y += y # for debug
-
-#<!!!!!!!!!!
     for enemy in enemies:
-        if not player.hits(enemy):
-            continue
+        if player.hits(enemy):
+            enemy.hurt(player.get_damage())
 
-        enemy.hurt(player.get_damage())
-
-        if enemy.get_health() <= 0:
-            enemy.drop_fruit(world)
-
-            enemies.remove(enemy)
-#!!!!!!!!!!>
-
-#<!!!!!!!!!!
-    # for enemy in enemies:
-    #     if player.hits(enemy):
-    #         enemy.hurt(player.get_damage())
-
-    #         if enemy.get_health() <= 0:
-    #             enemy.drop_fruit(world)
+            if enemy.get_health() <= 0:
+                enemy.drop_fruit(world)
                 
-    #             enemies.remove(enemy)
-#!!!!!!!!!!>
+                enemies.remove(enemy)
 
     Enemy.move_group_towards_player(enemies, player)
 
@@ -116,21 +95,7 @@ while 1:
         enemies.extend(Enemy.create_group(random.randint(1, 4)))
         enemy_timer = 0
 
-    text = Game.FONT.render(F"X: {coord_x}   |   Y: {coord_y}", 1, (0, 0, 0)) # for debug
-    text2 = Game.FONT.render(F"World X: {world.get_x()}   |   World Y: {world.get_y()}", 1, (0, 0, 0)) # for debug
-    text3 = Game.FONT.render(F"Player health: {player.get_health()}", 1, (0, 0, 0)) # for debug
-    text4 = Game.FONT.render(F"Bullets: {player.get_len_bullets()}", 1, (0, 0, 0)) # for debug
-    text5 = Game.FONT.render(F"Enemies: {len(enemies)}", 1, (0, 0, 0)) # for debug
-    text6 = Game.FONT.render(F"FPS: {round(clock.get_fps())}", 1, (0, 0, 0)) # for debug
-
     score = Game.FONT_TITLE.render(F"SCORE: {player.get_score()}", 1, (0, 0, 0))
-
-    screen.blit(text, (50, 50)) # for debug
-    screen.blit(text2, (50, 70)) # for debug
-    screen.blit(text3, (50, 90)) # for debug
-    screen.blit(text4, (50, 110)) # for debug
-    screen.blit(text5, (50, 130)) # for debug
-    screen.blit(text6, (50, 150)) # for debug
 
     screen.blit(score, ((Window.WIDTH / 2) - (score.get_width() / 2), 30))
 
